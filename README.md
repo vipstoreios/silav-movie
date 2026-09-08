@@ -1,18 +1,26 @@
-# Silav Movie 🎬
-
-A Kurdish subtitle movie and drama platform.
-
-## Features
-
-- Kurdish subtitles
-- Movies and series
-- Search system
-- Categories
-- Admin dashboard
-
-## Tech Stack
-
-- Next.js
-- TypeScript
-- Tailwind CSS
-- Supabase
+{
+  "name": "silav-movie",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "lucide-react": "latest"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "tailwindcss": "^3.4.7",
+    "postcss": "^8",
+    "autoprefixer": "^10"
+  }
+}

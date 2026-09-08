@@ -1,40 +1,46 @@
 import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
 import MovieCard from "@/components/MovieCard";
 
+
 export default function Home() {
+
   const movies = [
     {
       title: "The Last Kingdom",
       year: "2026",
-      image: "https://via.placeholder.com/300x450",
+      image: "https://image.tmdb.org/t/p/w500/example.jpg",
     },
     {
-      title: "Dark City",
+      title: "Dark",
       year: "2025",
-      image: "https://via.placeholder.com/300x450",
+      image: "https://image.tmdb.org/t/p/w500/example2.jpg",
     },
     {
       title: "Kurdish Drama",
       year: "2026",
-      image: "https://via.placeholder.com/300x450",
+      image: "https://image.tmdb.org/t/p/w500/example3.jpg",
     },
   ];
 
+
   return (
     <main>
+
       <Navbar />
 
-      <section>
-        <h1>
-          Silav Movie 🎬
-        </h1>
+      <Hero />
 
-        <p>
-          Kurdish subtitle movies and drama
-        </p>
+      <section className="container">
 
-        <div>
-          {movies.map((movie) => (
+        <h2 className="text-3xl font-bold mb-8">
+          نوێترین فیلمەکان 🎥
+        </h2>
+
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          {movies.map((movie)=>(
             <MovieCard
               key={movie.title}
               title={movie.title}
@@ -42,8 +48,11 @@ export default function Home() {
               image={movie.image}
             />
           ))}
+
         </div>
+
       </section>
+
     </main>
   );
 }

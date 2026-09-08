@@ -10,14 +10,26 @@ export default function MovieCard({
   image,
 }: MovieCardProps) {
   return (
-    <div>
+    <div className="bg-zinc-900 rounded-xl overflow-hidden shadow-lg">
       <img
         src={image}
         alt={title}
+        className="w-full h-80 object-cover"
       />
 
-      <h2>{title}</h2>
-      <p>{year}</p>
+      <div className="p-4">
+        <h2 className="text-xl font-bold">
+          {title}
+        </h2>
+
+        <p className="text-gray-400">
+          {year}
+        </p>
+
+        <span className="text-red-500">
+          ژێرنوسی کوردی
+        </span>
+      </div>
     </div>
   );
 }

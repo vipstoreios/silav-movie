@@ -1,8 +1,19 @@
+import Navbar from "@/components/Navbar";
+
 export default function Home() {
   return (
     <main>
-      <h1>Silav Movie 🎬</h1>
-      <p>Kurdish Subtitle Movies Platform</p>
+      <Navbar />
+
+      <section>
+        <h1>
+          Welcome to Silav Movie 🎬
+        </h1>
+
+        <p>
+          Kurdish subtitle movies and drama platform
+        </p>
+      </section>
     </main>
   );
 }

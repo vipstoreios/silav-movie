@@ -1,0 +1,11 @@
+{
+  "name": "Silav Movie",
+  "short_name": "Silav Movie",
+  "description": "فیلم و دراما بە ژێرنوسی کوردی",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "lang": "ku",
+  "dir": "rtl"
+}

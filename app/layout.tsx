@@ -1,20 +1,15 @@
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
 
-export const metadata = {
-  title: "Silav Movie",
-  description: "Kurdish subtitle movie platform",
+export const metadata: Metadata = {
+  title: 'Silav Movie',
+  description: 'فیلم و دراما بە ژێرنوسی کوردی',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ku">
-      <body>
-        {children}
-      </body>
+    <html lang="ku" dir="rtl">
+      <body>{children}</body>
     </html>
   );
 }

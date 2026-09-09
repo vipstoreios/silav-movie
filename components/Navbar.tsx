@@ -4,6 +4,7 @@ const links = [
   { href: '/', label: 'سەرەتا' },
   { href: '/#movies', label: 'فیلمەکان' },
   { href: '/#categories', label: 'تایبەتمەندییەکان' },
+  { href: '/watchlist', label: 'لیستی من' },
 ];
 
 export default function Navbar() {

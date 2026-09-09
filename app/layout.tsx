@@ -2,7 +2,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Silav Movie",
-  description: "Kurdish subtitle movies and drama platform",
+  description: "Kurdish subtitle movie platform",
 };
 
 export default function RootLayout({
@@ -12,7 +12,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ku">
-      <body>{children}</body>
+      <body>
+        {children}
+      </body>
     </html>
   );
 }

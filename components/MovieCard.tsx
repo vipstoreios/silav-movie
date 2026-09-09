@@ -4,7 +4,7 @@ import type { Movie } from '@/lib/types';
 export default function MovieCard({ movie }: { movie: Movie }) {
   return (
     <Link
-      href={`/movies/${movie.id}`}
+      href={`/watch?id=${encodeURIComponent(movie.id)}`}
       className="group overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/80 transition duration-300 hover:-translate-y-1 hover:border-red-500/40"
     >
       <div className="relative aspect-[2/3] overflow-hidden bg-gradient-to-br from-zinc-800 via-zinc-900 to-black">

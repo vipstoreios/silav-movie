@@ -1,17 +1,47 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Category, Movie } from '@/lib/types';
+import { getCategories, getMovies } from '@/lib/movieService';
 import MovieCard from './MovieCard';
 
-export default function MovieGrid({ movies, categories }: { movies: Movie[]; categories: Category[] }) {
+export default function MovieGrid() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('all');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let active = true;
+
+    Promise.all([getMovies(), getCategories()])
+      .then(([movieRows, categoryRows]) => {
+        if (!active) return;
+        setMovies(movieRows);
+        setCategories(categoryRows);
+      })
+      .catch((reason: unknown) => {
+        if (!active) return;
+        setError(reason instanceof Error ? reason.message : 'نەتوانرا داتاکان باربکرێن.');
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase();
     return movies.filter((movie) => {
-      const matchesQuery = normalized.length === 0 || movie.title.toLocaleLowerCase().includes(normalized) || String(movie.year ?? '').includes(normalized);
+      const matchesQuery =
+        normalized.length === 0 ||
+        movie.title.toLocaleLowerCase().includes(normalized) ||
+        String(movie.year ?? '').includes(normalized);
       const matchesCategory = category === 'all' || movie.category_id === category;
       return matchesQuery && matchesCategory;
     });
@@ -24,7 +54,9 @@ export default function MovieGrid({ movies, categories }: { movies: Movie[]; cat
           <p className="text-sm uppercase tracking-[0.25em] text-red-400">Silav library</p>
           <h2 className="mt-2 text-3xl font-black">نوێترین فیلمەکان</h2>
         </div>
-        <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-300">{filtered.length} فیلم</div>
+        <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-300">
+          {loading ? '...' : `${filtered.length} فیلم`}
+        </div>
       </div>
 
       <input
@@ -35,13 +67,35 @@ export default function MovieGrid({ movies, categories }: { movies: Movie[]; cat
       />
 
       <div className="flex gap-3 overflow-x-auto pb-2">
-        <button onClick={() => setCategory('all')} className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold transition ${category === 'all' ? 'bg-red-600 text-white' : 'bg-zinc-900 text-zinc-300'}`}>هەموو</button>
+        <button
+          onClick={() => setCategory('all')}
+          className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold transition ${category === 'all' ? 'bg-red-600 text-white' : 'bg-zinc-900 text-zinc-300'}`}
+        >
+          هەموو
+        </button>
         {categories.map((item) => (
-          <button key={item.id} onClick={() => setCategory(item.id)} className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold transition ${category === item.id ? 'bg-red-600 text-white' : 'bg-zinc-900 text-zinc-300'}`}>{item.name}</button>
+          <button
+            key={item.id}
+            onClick={() => setCategory(item.id)}
+            className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold transition ${category === item.id ? 'bg-red-600 text-white' : 'bg-zinc-900 text-zinc-300'}`}
+          >
+            {item.name}
+          </button>
         ))}
       </div>
 
-      {filtered.length > 0 ? (
+      {error ? (
+        <div className="rounded-3xl border border-red-500/20 bg-red-950/20 px-6 py-12 text-center">
+          <h3 className="text-xl font-bold">کێشەیەک لە پەیوەندی داتابەیسدا هەیە</h3>
+          <p className="mt-2 text-zinc-400">{error}</p>
+        </div>
+      ) : loading ? (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="aspect-[2/3] animate-pulse rounded-3xl bg-zinc-900" />
+          ))}
+        </div>
+      ) : filtered.length > 0 ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filtered.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
         </div>

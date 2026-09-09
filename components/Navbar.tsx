@@ -11,7 +11,6 @@ export default function Navbar() {
         <div className="flex items-center gap-4 text-sm font-bold text-zinc-300 md:gap-7">
           <Link href="/" className="transition hover:text-white">سەرەتا</Link>
           <Link href="/#movies" className="transition hover:text-white">فیلمەکان</Link>
-          <Link href="/admin/dashboard" className="hidden transition hover:text-white sm:block">Admin</Link>
         </div>
       </nav>
     </header>

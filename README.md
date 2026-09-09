@@ -19,6 +19,20 @@ https://vipstoreios.github.io/silav-movie/
 
 The public site reads `movies` and `categories` from Supabase in the browser. Public access is read-only through RLS policies. Movie records support title, year, description, poster, video, trailer, subtitle and category fields.
 
+## Production roadmap
+
+Silav Movie is being upgraded into a complete streaming platform with:
+
+- Full user authentication
+- User profiles and preferences
+- Watch history and watchlist
+- Advanced movie and series management
+- Admin dashboard with secure permissions
+- Video player improvements
+- Search and filtering
+- Kurdish RTL optimized experience
+- Better mobile and desktop UI
+
 ## Local development
 
 1. Copy `.env.example` to `.env.local`.

@@ -14,19 +14,20 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  NEXT_PUBLIC_SUPABASE_URL: https://zkwuxtjbagboixoguadj.supabase.co
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable__FjQsm9L7ZJ6U4MeWaG0iw_UVN5bGxW
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_SUPABASE_URL: https://zkwuxtjbagboixoguadj.supabase.co
-      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable__FjQsm9L7ZJ6U4MeWaG0iw_UVN5bGxW
     steps:
       - uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
       - run: npm ci
       - run: npm run typecheck

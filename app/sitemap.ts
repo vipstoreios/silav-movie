@@ -1,7 +1,11 @@
 import type { MetadataRoute } from 'next';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://silav-movie.vercel.app';
+  const base = 'https://vipstoreios.github.io/silav-movie';
+
   return [
     { url: `${base}/`, changeFrequency: 'daily', priority: 1 },
     { url: `${base}/browse`, changeFrequency: 'daily', priority: 0.9 },

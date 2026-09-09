@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import MobileNav from '@/components/MobileNav';
 import MovieCard from '@/components/MovieCard';
+import VideoPlayer from '@/components/VideoPlayer';
 import { getMovie, getMovies } from '@/lib/movieService';
 import type { Movie } from '@/lib/types';
 
@@ -40,8 +41,6 @@ function WatchContent() {
       setComments(commentStore[id] || []);
       const history: string[] = JSON.parse(localStorage.getItem('silav-history') || '[]');
       localStorage.setItem('silav-history', JSON.stringify([id, ...history.filter((x) => x !== id)].slice(0, 50)));
-      const progress = JSON.parse(localStorage.getItem('silav-progress') || '{}');
-      if (!progress[id]) { progress[id] = 10; localStorage.setItem('silav-progress', JSON.stringify(progress)); }
     }).catch((reason: unknown) => { if (active) setError(reason instanceof Error ? reason.message : 'نەتوانرا فیلمەکە باربکرێت.'); }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, [id]);
@@ -69,12 +68,6 @@ function WatchContent() {
     localStorage.setItem('silav-comments', JSON.stringify(store)); setComments(next); setComment('');
   }
 
-  function markWatched() {
-    if (!movie) return;
-    const progress = JSON.parse(localStorage.getItem('silav-progress') || '{}'); progress[movie.id] = 100;
-    localStorage.setItem('silav-progress', JSON.stringify(progress));
-  }
-
   async function shareMovie() {
     if (!movie) return;
     const url = window.location.href;
@@ -93,6 +86,8 @@ function WatchContent() {
   if (error || !movie) return <div className="container py-24 text-center"><div className="text-6xl">🎞️</div><h1 className="mt-5 text-3xl font-black">فیلمەکە نەدۆزرایەوە</h1>{error && <p className="mt-3 text-zinc-500">{error}</p>}<Link href="/" className="mt-6 inline-block rounded-full bg-red-600 px-6 py-3 font-bold">گەڕانەوە بۆ سەرەتا</Link></div>;
 
   return <>
+    {movie.video_url && <div id="player" className="pt-6"><VideoPlayer movieId={movie.id} title={movie.title} src={movie.video_url} poster={movie.poster_url} /></div>}
+
     <section className="container py-8 md:py-12">
       <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950/80 p-5 shadow-2xl shadow-black/40 md:p-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(220,38,38,0.16),transparent_28rem)]" />
@@ -104,7 +99,7 @@ function WatchContent() {
             <p className="mt-6 max-w-3xl text-base leading-8 text-zinc-300 md:text-lg">{movie.description ?? 'وردەکاری زیاتر بەم زووانە زیاد دەکرێت.'}</p>
             <div className="mt-6 flex items-center gap-1"><span className="ml-2 text-sm font-bold text-zinc-400">هەڵسەنگاندنی تۆ:</span>{[1,2,3,4,5].map((v) => <button key={v} onClick={() => rate(v)} className={`text-2xl transition hover:scale-110 ${v <= rating ? 'text-yellow-400' : 'text-zinc-700'}`}>★</button>)}</div>
             <div className="mt-8 flex flex-wrap gap-3">
-              {movie.video_url && <a onClick={markWatched} href={movie.video_url} target="_blank" rel="noreferrer" className="rounded-full bg-red-600 px-6 py-3 font-bold shadow-lg shadow-red-950/40 transition hover:bg-red-500">▶ بینینی فیلم</a>}
+              {movie.video_url && <a href="#player" className="rounded-full bg-red-600 px-6 py-3 font-bold shadow-lg shadow-red-950/40 transition hover:bg-red-500">▶ دەستپێکردنی بینین</a>}
               {movie.trailer_url && <a href={movie.trailer_url} target="_blank" rel="noreferrer" className="rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 font-bold hover:bg-white/10">تریلەر</a>}
               {movie.subtitle_url && <a href={movie.subtitle_url} target="_blank" rel="noreferrer" className="rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 font-bold hover:bg-white/10">ژێرنوس</a>}
               <button onClick={toggleWatchlist} className="rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 font-bold hover:bg-white/10">{saved ? '♥ لە لیستی منە' : '♡ زیادکردن بۆ لیستی من'}</button>

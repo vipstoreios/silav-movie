@@ -41,7 +41,9 @@ export default function ProfilePage() {
             <p className="mt-2 text-center text-sm text-zinc-400">ڕێکخستنەکانی Silav Movie</p>
             <div className="mt-6 space-y-2 text-sm text-zinc-300">
               <a href="/watchlist" className="block rounded-xl bg-white/5 px-4 py-3 hover:bg-white/10">♡ لیستی من</a>
+              <a href="/history" className="block rounded-xl bg-white/5 px-4 py-3 hover:bg-white/10">◷ مێژووی بینین</a>
               <a href="/browse" className="block rounded-xl bg-white/5 px-4 py-3 hover:bg-white/10">⌕ گەڕانی پێشکەوتوو</a>
+              <a href="/genres" className="block rounded-xl bg-white/5 px-4 py-3 hover:bg-white/10">▦ جۆرەکان</a>
               <a href="/request" className="block rounded-xl bg-white/5 px-4 py-3 hover:bg-white/10">＋ داواکاری فیلم</a>
             </div>
           </aside>

@@ -2,7 +2,8 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MovieCard from "@/components/MovieCard";
 
-
+import SearchBar from "@/components/SearchBar";
+import Category from "@/components/Category";
 export default function Home() {
 
   const movies = [

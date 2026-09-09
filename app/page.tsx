@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import SearchBox from '@/components/SearchBox';
 import FeatureStrip from '@/components/FeatureStrip';
 import QuickSections from '@/components/QuickSections';
 import TrendingSection from '@/components/TrendingSection';
@@ -13,6 +14,7 @@ export default function Home() {
     <main className="min-h-screen pb-24 md:pb-0">
       <Navbar />
       <Hero />
+      <SearchBox />
       <FeatureStrip />
       <QuickSections />
       <TrendingSection />
